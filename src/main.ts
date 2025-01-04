@@ -14,12 +14,17 @@ const height = globalThis.innerHeight;
 const scene = new THREE.Scene();
 
 // Geometry
+const earthGroup = new THREE.Group();
+
 const geometry = new THREE.IcosahedronGeometry(1, 16);
 const material = new THREE.MeshStandardMaterial({
   map: loader.load("00_earthmap1k.jpg"),
 });
 const earthMesh = new THREE.Mesh(geometry, material);
-scene.add(earthMesh);
+
+earthGroup.rotation.z = (-23.5 * Math.PI) / 180;
+earthGroup.add(earthMesh);
+scene.add(earthGroup);
 
 // Light
 const sunLight = new THREE.DirectionalLight(0xffffff, 2);
@@ -45,7 +50,7 @@ renderer.render(scene, camera);
 
 // Animation
 const tick = () => {
-  earthMesh.rotation.y += 0.002;
+  earthGroup.rotation.y += 0.002;
 
   renderer.render(scene, camera);
 
