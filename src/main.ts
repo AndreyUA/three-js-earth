@@ -3,6 +3,8 @@ import "./style.css";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
+const loader = new THREE.TextureLoader();
+
 const canvas = document.querySelector("canvas.webgl") as HTMLCanvasElement;
 
 const width = globalThis.innerWidth;
@@ -14,7 +16,7 @@ const scene = new THREE.Scene();
 // Geometry
 const geometry = new THREE.IcosahedronGeometry(1, 16);
 const material = new THREE.MeshStandardMaterial({
-  color: 0xffff00,
+  map: loader.load("00_earthmap1k.jpg"),
 });
 const earthMesh = new THREE.Mesh(geometry, material);
 scene.add(earthMesh);
@@ -43,6 +45,8 @@ renderer.render(scene, camera);
 
 // Animation
 const tick = () => {
+  earthMesh.rotation.y += 0.002;
+
   renderer.render(scene, camera);
 
   globalThis.requestAnimationFrame(tick);
