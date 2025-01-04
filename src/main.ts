@@ -18,6 +18,7 @@ const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
 
 const renderer = new THREE.WebGLRenderer({
+  antialias: true,
   canvas,
 });
 renderer.setSize(width, height);
